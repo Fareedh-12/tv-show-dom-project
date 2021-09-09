@@ -9,9 +9,22 @@
   </head>
 
   <body>
+    <div class = "searchBar">
+      <select name="displayEpisodes" id="displayEpisodes">\
+        <option value="default">Select episodes</option>
+      </select>
+      <input type="text" id="searchBar">
+      <p class = "results"></p>
+    </div>
+      
+
     <div id="root">
     </div>
 
+
+    <footer>
+      <p>Data has been adapted from <a href="TVMaze.com">TVMaze.com</a></p>
+    </footer>
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
 
