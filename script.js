@@ -1,23 +1,26 @@
 //You can edit ALL of the code here
-
 //global variable rootElem so that all functions can reach it
 const rootElem = document.getElementById("root");
 
 //Function called on every reload of the page
 function setup() {
-  allEpisodes = getAllEpisodes();
+  fetch("https://api.tvmaze.com/shows/82/episodes")
+  .then((response)=>{
+    return response.json();
+  }).then((data)=>{
+     allEpisodes = data;
 
   //Display episodes on screen function
   makePageForEpisodes(allEpisodes);
   //select options display
   displayOptions(allEpisodes);
-  
+
   //Event listeners for search bar and select options
   searchBar.addEventListener("keyup", searchEpisodes);
   displayEpisodes.addEventListener("change", displayOptionsFromSelect);
-
+  })
+  
 }
-
 
 //function that creates a card for each episode
 function makePageForEpisodes(episodeList) {
@@ -68,7 +71,7 @@ function displayOptions(episodeList){
 //Filter function that filters the displayed episodes basing on the user input in the search bar
 function searchEpisodes(){
   searchBar = document.getElementById("searchBar");
-  allEpisodes = getAllEpisodes();
+  // allEpisodes = getEpisodes();
   let filteredEpisodes = allEpisodes.filter(item => {
      rootElem.innerHTML = "";
     if(item.name.toLowerCase().includes(searchBar.value.toLowerCase()) || item.summary.toLowerCase().includes(searchBar.value.toLowerCase())){
@@ -86,7 +89,7 @@ function searchEpisodes(){
 //filter function that displays only the selected episode from the options
 function displayOptionsFromSelect(){
   let displayEpisodes = document.querySelector("#displayEpisodes");
-  allEpisodes =  getAllEpisodes();
+  // allEpisodes =  getEpisodes();
   //reload option for the user to go back to the main page
   if(displayEpisodes.value === "default"){
     location.reload();
